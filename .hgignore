@@ -1,0 +1,5 @@
+# Switch to regexp syntax to get rooted patterns.
+syntax: regexp
+
+# Ignore all files and subfolders in the build folder.
+^build/
