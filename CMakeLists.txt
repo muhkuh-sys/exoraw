@@ -62,11 +62,16 @@ SET(CPACK_GENERATOR "TBZ2")
 INCLUDE(CPack)
 
 # Build the POM file.
-CONFIGURE_FILE(pom/exoraw.pom ${PROJECT_NAME}_${POM_ID_OS}_${POM_ID_PROCESSOR}-${POM_VERSION}_${POM_MBS_RELEASE_VERSION}.pom)
+CONFIGURE_FILE(templates/exoraw.pom ${PROJECT_NAME}_${POM_ID_OS}_${POM_ID_PROCESSOR}-${POM_VERSION}_${POM_MBS_RELEASE_VERSION}.pom)
+
+# Build the python file.
+CONFIGURE_FILE(templates/exoraw.py ${PROJECT_NAME}_${POM_ID_OS}_${POM_ID_PROCESSOR}-${POM_VERSION}_${POM_MBS_RELEASE_VERSION}.py)
 
 INSTALL(TARGETS TARGET_exoraw
         RUNTIME DESTINATION ${PROJECT_NAME}-${POM_VERSION}_${POM_MBS_RELEASE_VERSION}
 )
+INSTALL(FILES templates/exoraw.py
+        DESTINATION .)
 
 #----------------------------------------------------------------------------
 
