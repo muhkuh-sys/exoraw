@@ -12,8 +12,8 @@ def exoraw_emitter(target, source, env):
 
 
 def ApplyToEnv(env):
-	strVersion = '2.0.7'
-	strMbsRelease = '1'
+	strVersion = '${POM_VERSION}'
+	strMbsRelease = '${POM_MBS_RELEASE_VERSION}'
 	
 	
 	#----------------------------------------------------------------------------
