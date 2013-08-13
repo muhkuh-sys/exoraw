@@ -10,12 +10,6 @@ IF(${CMAKE_BUILD_TOOL} MATCHES "(msdev|VCExpress|devenv|nmake)")
 	add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
 ENDIF(${CMAKE_BUILD_TOOL} MATCHES "(msdev|VCExpress|devenv|nmake)")
 
-# Check for MINGW compiler.
-IF((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") AND (${CMAKE_COMPILER_IS_GNUCC}))
-	# Link statically to libgcc and libstdc++ .
-	ADD_DEFINITIONS(-static-libgcc)
-	ADD_DEFINITIONS(-static-libstdc++)
-ENDIF((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") AND (${CMAKE_COMPILER_IS_GNUCC}))
 
 #----------------------------------------------------------------------------
 #
@@ -42,6 +36,9 @@ set(SOURCES_exoraw
 
 add_executable(TARGET_exoraw ${SOURCES_exoraw})
 set_property(TARGET TARGET_exoraw PROPERTY OUTPUT_NAME "exoraw")
+IF((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") AND (${CMAKE_COMPILER_IS_GNUCC}))
+	set_property(TARGET TARGET_exoraw PROPERTY LINK_FLAGS "--static -static-libgcc -static-libstdc++")
+ENDIF((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") AND (${CMAKE_COMPILER_IS_GNUCC}))
 
 #----------------------------------------------------------------------------
 #
