@@ -14,6 +14,18 @@ if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
 
+make
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+
+make test
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+
 make package
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
@@ -25,13 +37,25 @@ cd ..
 
 #-----------------------------------------------------------------------------
 #
-# Build the linux 32 bit version.
+# Build the linux 64 bit version.
 #
 rm -rf build_linux64
 mkdir build_linux64
 cd build_linux64
 
 cmake -DCMAKE_C_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64 -DTARGET_PROCESSOR=x86_64 ..
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+
+make
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+
+make test
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
@@ -60,6 +84,18 @@ if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
 
+make
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+
+make test
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+
 make package
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
@@ -78,6 +114,18 @@ mkdir build_windows64
 cd build_windows64
 
 cmake -DCMAKE_C_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64 -DCMAKE_SYSTEM_NAME=Windows -DTARGET_PROCESSOR=amd64 -DCMAKE_C_COMPILER=/usr/bin/x86_64-w64-mingw32-gcc -DCMAKE_CXX_COMPILER=/usr/bin/x86_64-w64-mingw32-g++ -DCMAKE_RC_COMPILER=/usr/bin/x86_64-w64-mingw32-windres ..
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+
+make
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+
+make test
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
