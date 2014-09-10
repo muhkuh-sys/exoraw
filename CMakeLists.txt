@@ -1,8 +1,13 @@
 cmake_minimum_required (VERSION 2.8)
 
-
 project(exoraw)
 
+
+# Enable tests (see here for details: http://www.vtk.org/Wiki/CMake/Testing_With_CTest)
+ENABLE_TESTING()
+
+# Python is used for some test scripts.
+FIND_PACKAGE(PythonInterp REQUIRED)
 
 IF(${CMAKE_BUILD_TOOL} MATCHES "(msdev|VCExpress|devenv|nmake)")
 	# Do not show msvs security warnings about unsafe functions.
@@ -77,4 +82,13 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_${POM_ID_VERSION}_${PO
         DESTINATION .)
 
 #----------------------------------------------------------------------------
+#
+# Add tests for this module.
+#
+IF((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") AND (${CMAKE_COMPILER_IS_GNUCC}))
+	# Here are the MinGW specific tests.
+	ADD_TEST(NAME lua_MinGW_DLL_dependencies
+	         COMMAND "${PYTHON_EXECUTABLE}" ${CMAKE_HOME_DIRECTORY}/cmake/tests/mingw_dll_dependencies.py $<TARGET_FILE:TARGET_exoraw>)
+ENDIF((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") AND (${CMAKE_COMPILER_IS_GNUCC}))
+
 
