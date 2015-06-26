@@ -1,12 +1,17 @@
 language: c
 
 
+env:
+  global:
+    - PATH=/opt/mingw-w64-i686/bin:/opt/mingw-w64-x86_64/bin:${PATH}
+
+
 before_install:
   - sudo dpkg --purge cmake cmake-doc cmake-data
   - curl http://download.opensuse.org/repositories/home:/doc_bacardi/xUbuntu_12.04/Release.key | sudo apt-key add -
   - echo "deb http://download.opensuse.org/repositories/home:/doc_bacardi/xUbuntu_12.04 ./" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update -qq
-  - sudo apt-get --assume-yes install mingw-w64 g++-mingw-w64 g++-mingw-w64-i686 g++-mingw-w64-x86-64 gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64
+  - sudo apt-get --assume-yes install mingw-w64-mbs
   - sudo apt-get --assume-yes install gcc-multilib g++-multilib make
   - sudo apt-get --assume-yes install cmake3
   - sudo apt-get --assume-yes install python-pip python-virtualenv
@@ -17,5 +22,5 @@ before_install:
 
 # This is the command to build the whole project and pack the results in a distributable form.
 script:
-  - ./.travis.sh
+  - ./.build.sh
 
